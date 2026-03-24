@@ -20,4 +20,13 @@ jobs:
         run: docker build -t saurabhpraja/app_code_repo:latest .
       - name: push to docker hub
         run: docker push saurabhpraja/app_code_repo:latest
+      - name: Deploy Docker container on Azure VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          scripts:
+            docker pull saurabhpraja/app_code_repo:latest
+            docker run -d --name app_code-container -p 8243:80 saurabhpraja/app_code_repo:latest
           
