@@ -3,7 +3,7 @@ FROM node:16.17.0-alpine AS build
 # Set the working directory
 WORKDIR /app
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package*.json .
 # Install dependencies
 RUN npm install
 # Copy the remaining application code
